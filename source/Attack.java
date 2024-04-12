@@ -1,17 +1,21 @@
 package source;
 
-import source.EditFile;
-
 public class Attack {
-  public static void launchAttack(String encrypted_file) {
-    EditFile editFile = new EditFile();
-    String encryptedText = editFile.read(encrypted_file);
 
-    int length = encryptedText.length();
-    char[] charArray = encryptedText.toCharArray();
-    charArray[length - 1] = charArray[length - 1];
-    String attacked_content = new String(charArray);
+	/**
+	 * Read encrypted data from encrypted_file location and feed it with incorrect
+	 * data
+	 * 
+	 * @param encrypted_file
+	 */
+	public void launchAttack(String encrypted_file) {
+		EditFile editFile = new EditFile();
+		String encryptedText = editFile.read(encrypted_file);
 
-    editFile.write(encrypted_file, attacked_content);
-  }
+		int length = encryptedText.length();
+		char[] charArray = encryptedText.toCharArray();
+		charArray[length - 1] = charArray[length - 1];
+
+		editFile.write(encrypted_file, new String(charArray));
+	}
 }
