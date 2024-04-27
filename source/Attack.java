@@ -8,14 +8,17 @@ public class Attack {
 	 * 
 	 * @param encrypted_file
 	 */
-	public void launchAttack(String encrypted_file) {
-		EditFile editFile = new EditFile();
-		String encryptedText = editFile.read(encrypted_file);
-
-		int length = encryptedText.length();
-		char[] charArray = encryptedText.toCharArray();
-		charArray[length - 1] = charArray[length - 1];
-
-		editFile.write(encrypted_file, new String(charArray));
+	public void launchAttack(String encrypted_file, String fake_content, String algo, String key) {
+		try {
+			if (algo.equals("aes")) {
+				AES aes = new AES();
+				aes.encrypt(fake_content, encrypted_file, key);
+			} else {
+				DES des = new DES();
+				des.encrypt(fake_content, encrypted_file, key);
+			}
+		} catch (Exception exception) {
+			System.err.println("Error: " + exception.getMessage());
+		}
 	}
 }

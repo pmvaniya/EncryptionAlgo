@@ -33,7 +33,8 @@ public class Encryption {
 			/* Decalre various variables and initialize necessary objects */
 			String data_file = "data/plaintext.txt", encrypted_file = "data/encrypt.txt",
 					decrypted_file = "data/decrypt.txt", incorrect_file = "data/incorrect.txt",
-					avalanche_data_file = "data/ava_plain.txt", avalanche_encrypted_file = "data/ava_encrypt.txt";
+					avalanche_data_file = "data/ava_plain.txt", avalanche_encrypted_file = "data/ava_encrypt.txt",
+					fake_content = "data/fake_content.txt";
 			String aes_key = "keys/aes_key", des_key = "keys/des_key";
 			Attack attack = new Attack();
 			Scanner scanner = new Scanner(System.in);
@@ -59,7 +60,7 @@ public class Encryption {
 				des.decrypt(encrypted_file, decrypted_file, des_key);
 				System.out.println("\nData encrypted and decrypted successfully.");
 
-				attack.launchAttack(encrypted_file);
+				attack.launchAttack(encrypted_file, fake_content, "des", des_key);
 				des.decrypt(encrypted_file, incorrect_file, des_key);
 			}
 
@@ -80,7 +81,7 @@ public class Encryption {
 				aes.decrypt(encrypted_file, decrypted_file, aes_key);
 				System.out.println("\nData encrypted and decrypted successfully.");
 
-				attack.launchAttack(encrypted_file);
+				attack.launchAttack(encrypted_file, fake_content, "aes", aes_key);
 				aes.decrypt(encrypted_file, incorrect_file, aes_key);
 			}
 
