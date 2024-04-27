@@ -16,6 +16,7 @@ ALSO demonstrate the AVALANCHE EFFECT for the above pogram
 /** Import Custom Modules */
 import source.AES;
 import source.DES;
+import source.EditFile;
 import source.Attack;
 
 /** Import Java Built-in Modules */
@@ -62,6 +63,8 @@ public class Encryption {
 
 				attack.launchAttack(encrypted_file, fake_content, "des", des_key);
 				des.decrypt(encrypted_file, incorrect_file, des_key);
+
+				showFileContents();
 			}
 
 			/* If user chooses AES */
@@ -83,6 +86,8 @@ public class Encryption {
 
 				attack.launchAttack(encrypted_file, fake_content, "aes", aes_key);
 				aes.decrypt(encrypted_file, incorrect_file, aes_key);
+
+				showFileContents();
 			}
 
 			/* If user enters incorrect choice */
@@ -98,5 +103,25 @@ public class Encryption {
 		catch (Exception exception) {
 			System.err.println("Error: " + exception.getMessage());
 		}
+	}
+
+	public static void showFileContents() {
+		EditFile editFile = new EditFile();
+
+		String plaintext = editFile.read("data/plaintext.txt");
+		String encrypted = editFile.read("data/encrypt.txt");
+		String decrypted = editFile.read("data/decrypt.txt");
+		String avaplain = editFile.read("data/ava_plain.txt");
+		String avaencrypt = editFile.read("data/ava_encrypt.txt");
+		String fakecontent = editFile.read("data/fake_content.txt");
+		String incorrect = editFile.read("data/incorrect.txt");
+
+		System.out.println("\n> Plain Content:\n" + plaintext);
+		System.out.println("> Encrypted Content:\n" + encrypted);
+		System.out.println("\n> Decrypted Content:\n" + decrypted);
+		System.out.println("> Plain text with a slight change:\n" + avaplain);
+		System.out.println("\n> Avalanche Effect:\n" + avaencrypt);
+		System.out.println("\n> Fake Content:\n" + fakecontent);
+		System.out.println("> Incorrect Content due to changed Encrypted File:\n" + incorrect);
 	}
 }
